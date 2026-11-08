@@ -1,6 +1,6 @@
 /* 画像・音声は相対URLを指定。空文字なら内蔵描画／合成音を使用。 */
 const GAME_CONFIG = {
- duration: 60, initialRight: 4,
+ duration: 60, initialRight: 0,
  stages: [
   {until:20, interval:[2.1,3.0], burst:[1,1], weights:{normal:8,fail:1,escape:1}},
   {until:40, interval:[1.5,2.2], burst:[1,2], weights:{normal:6,fail:2,escape:2}},

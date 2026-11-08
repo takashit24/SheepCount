@@ -13,7 +13,7 @@ class FarmGame{
  for(const s of this.active){s.age+=dt;const land=s.approach+s.jump;s.state=s.age<s.approach?'approach':s.age<land?'jump':'exit';if(s.age>=land&&!s.counted){s.counted=true;if(s.kind==='normal'){this.net++;this.right.push(s.id);}else if(s.kind==='escape')this.net--;this.events.push({id:s.id,kind:s.kind,time:this.time,delta:s.kind==='normal'?1:s.kind==='escape'?-1:0});}}
  this.active=this.active.filter(s=>s.age<s.approach+s.jump+s.exit);if(this.time>=this.config.duration&&!this.active.length)this.finished=true;
  }
- pose(s){const dir=s.kind==='escape'?-1:1, start=dir===1?-65:965, near=450-dir*115, far=450+dir*115;const ground=330+s.lane*51;let x,y=ground,rotation=0;
+ pose(s){const dir=s.kind==='escape'?-1:1, start=dir===1?-65:965, fenceX=414+s.lane*40, near=fenceX-dir*115, far=fenceX+dir*115;const ground=330+s.lane*51;let x,y=ground,rotation=0;
  if(s.age<s.approach){const p=s.age/s.approach;x=start+(near-start)*(p*p*(3-2*p));y-=Math.abs(Math.sin(p*25))*5;}
  else if(s.age<s.approach+s.jump){const p=(s.age-s.approach)/s.jump;if(s.kind==='fail'){x=near+65*Math.sin(Math.PI*p);y-=48*Math.sin(Math.PI*p);rotation=-.3*Math.sin(Math.PI*p);}else{x=near+(far-near)*p;y-=145*4*p*(1-p);rotation=dir*.12*Math.sin(p*Math.PI*2);}}
  else{const p=Math.min(1,(s.age-s.approach-s.jump)/s.exit);const from=s.kind==='fail'?near:far;const target=s.kind==='fail'?-65:dir===1?965:-65;x=from+(target-from)*p;y-=Math.abs(Math.sin(p*20))*4;}
